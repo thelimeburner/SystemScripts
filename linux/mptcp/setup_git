@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd /etc/default
+sudo git init 
+sudo git remote add origin https://github.com/mrlucasch/boot-order
+sudo git fetch origin
+sudo rm -rf grub

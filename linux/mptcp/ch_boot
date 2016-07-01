@@ -1,0 +1,16 @@
+#!/bin/bash
+
+
+if uname -a | grep "mptcp"; then
+	echo "Changing to tcp kernel"
+	kernel="tcp"
+else 
+	echo "Changing to mptcp kernel"
+	kernel="mptcp"
+fi
+
+
+cd /etc/default/
+sudo git checkout $kernel 
+
+sudo update-grub
