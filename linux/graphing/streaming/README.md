@@ -11,3 +11,4 @@ bokeh serve --address=0.0.0.0 --host='*'
 ```
 iperf -c mptcp_host -y c -t 300 -i 1 | python streamer.py
 ``` 
+- Visit this webpage: http://IP_OF_HOST:5006/?bokeh-session-id=iperf
