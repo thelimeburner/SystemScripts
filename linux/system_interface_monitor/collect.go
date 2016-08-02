@@ -7,6 +7,7 @@ import(
 	"os"
 	"strconv"
 	"time"
+	"flag"
 )
 
 
@@ -22,7 +23,7 @@ type bytes struct {
 var colors = [...]string{"\033[34m", "\033[35m","\033[37m","\033[93m","\033[32m","\033[33m","\033[36m","\033[31m"}
 
 var link_capacity = 1000.0
-
+var mode = "tx"
 func printCommand(cmd *exec.Cmd) {
   fmt.Printf("==> Executing: %s\n", strings.Join(cmd.Args, " "))
 }
@@ -48,16 +49,16 @@ func collect_bandwidth(c chan *bytes){
 	fmt.Println("received pointer")
 	for{
 				// Create an *exec.Cmd
-		cmd := exec.Command("cat", "/sys/class/net/eth0/statistics/tx_bytes")
+		cmd := exec.Command("cat", "/sys/class/net/eth0/statistics/"+mode+"_bytes")
 		output, err := cmd.CombinedOutput()
 
-		cmd2 := exec.Command("cat", "/sys/class/net/eth1/statistics/tx_bytes")
+		cmd2 := exec.Command("cat", "/sys/class/net/eth1/statistics/"+mode+"_bytes")
 		output2, err := cmd2.CombinedOutput()
 
-		cmd3 := exec.Command("cat", "/sys/class/net/eth2/statistics/tx_bytes")
+		cmd3 := exec.Command("cat", "/sys/class/net/eth2/statistics/"+mode+"_bytes")
 		output3, err := cmd3.CombinedOutput()
 
-		cmd4 := exec.Command("cat", "/sys/class/net/eth3/statistics/tx_bytes")
+		cmd4 := exec.Command("cat", "/sys/class/net/eth3/statistics/"+mode+"_bytes")
 		output4, err := cmd4.CombinedOutput()
 
 
@@ -122,7 +123,7 @@ func draw_graph(data bytes){
 	
 	fmt.Println("\033[H\033[2J")
 	fmt.Println("Network Interface Usage as Percentage of Interface Capacity")
-	fmt.Println("Link Capacity: "+strconv.Itoa(int(link_capacity)))
+	fmt.Println("Link Capacity: "+strconv.Itoa(int(link_capacity))+"      Mode: "+mode)
 	fmt.Println("eth0: "+gen_bar(data.eth0,colors[0]))	
 	fmt.Println("eth1: "+gen_bar(data.eth1,colors[1]))	
 	fmt.Println("eth2: "+gen_bar(data.eth2,colors[2]))	
@@ -130,15 +131,32 @@ func draw_graph(data bytes){
 
 }
 
+func printHelp(){
+	fmt.Println("How to the interface monitor. Call it like so:")
+	fmt.Println("Default:\n\t ./collect \n This will print tx stats and default to a max fo 1Gbit.")
+	fmt.Println("Specify Mode:\n\t ./collect -m [ tx | rx ]  \n This will print either received or transmited stats")
+	fmt.Println("Specify Link Capacity(in Mbits):\n\t ./collect -l 2000 \n This will use 2000 megabits as the link capacity")
+	os.Exit(0)
+
+
+}
+
 
 func main(){
 	c := make(chan *bytes)
-	if len(os.Args)>1{
-		f, err := strconv.ParseFloat(os.Args[1], 64)
-		if err != nil{
-			fmt.Println(err)
-		}
-		link_capacity = f
+
+	//parse flags
+	flag.Float64Var(&link_capacity,"l",1000," max link capacity in bytes")
+	flag.StringVar(&mode,"m","tx","either use tx or rx")
+	help := flag.Bool("h",false,"Show help")
+	flag.Parse()
+	
+	if *help{
+		printHelp()
+	}	
+	if strings.EqualFold(mode,"rx")!=true && strings.EqualFold(mode,"tx") != true{
+
+		printHelp()
 	}
 	t := bytes{}
 	data := bytes{}
