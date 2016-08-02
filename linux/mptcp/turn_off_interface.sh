@@ -1,5 +1,7 @@
 #!/bin/bash
 
-cd /data/iproute-mptcp/ip
 
-sudo ./ip link set dev ens3 multipath off
+##Need to install iproute2 after enabling multipath repos
+## sudo apt install iproute2
+
+sudo ./ip link set dev $1 multipath off
