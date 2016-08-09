@@ -1,0 +1,11 @@
+#!/bin/bash
+
+
+sudo sysctl net.mptcp.mptcp_binder_gateways 
+sudo sysctl net.mptcp.mptcp_checksum 
+sudo sysctl net.mptcp.mptcp_debug 
+sudo sysctl net.mptcp.mptcp_enabled 
+sudo sysctl net.mptcp.mptcp_path_manager 
+sudo sysctl net.mptcp.mptcp_scheduler
+sudo sysctl net.mptcp.mptcp_syn_retries 
+sudo sysctl net.mptcp.mptcp_version 
