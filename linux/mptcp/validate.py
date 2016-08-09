@@ -2,8 +2,9 @@
 
 #
 # Reads the given file and checks if all values are as expected
-#
-#
+# 
+# python validate.py FILENAME   ==> Just verifies if all kernel variables are as expected
+# python validate.py -f FILENAME ==> Verifies and then attempts to set failed variables to expected
 #
 
 
