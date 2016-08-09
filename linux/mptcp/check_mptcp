@@ -9,3 +9,6 @@ sudo sysctl net.mptcp.mptcp_path_manager
 sudo sysctl net.mptcp.mptcp_scheduler
 sudo sysctl net.mptcp.mptcp_syn_retries 
 sudo sysctl net.mptcp.mptcp_version 
+sudo sysctl net.ipv4.tcp_available_congestion_control 
+sudo sysctl net.ipv4.tcp_allowed_congestion_control
+sudo sysctl net.ipv4.tcp_congestion_control
