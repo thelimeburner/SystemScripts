@@ -28,7 +28,7 @@ def check_value(key):
 
 ###Runs sysctl and returns the value
 def set_value(key,value):
-    cmd = "sudo sysctl -w "+key+"="+value
+    cmd = "sudo sysctl -w "+key+"="+"\""+value+"\""
     p = Popen(cmd , shell=True, stdout=PIPE, stderr=PIPE)
     out, err = p.communicate()
     if(p.returncode != 0):
