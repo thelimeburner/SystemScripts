@@ -6,7 +6,7 @@ This script allows you to generate html pages to host your pdfs. This is used on
 
 # Running
 
-./template.sh pandoc_test/sample.md improving_datacenter.html Improving_Datacenter_Performance_and_Robustness_with_Multipath_TCP /Users/lucasch/Dropbox/Lass/mptcp/multipath_pdfs/p266-raiciu.pdf
+
 
 
 `./template.sh SNIPPET OUTPUT_NAME PDF_TITLE PDF_LOCATION`
