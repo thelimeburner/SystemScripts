@@ -34,6 +34,9 @@ func main(){
 	dat, err := ioutil.ReadFile("alice-orig.txt")
 	check(err)
 	fmt.Println("Done Reading File")
+
+	looper := 598800
+
 //	fmt.Print(string(dat))
 //	large_text := ""
 //	text := gen_file(string(dat),&large_text)	
@@ -42,7 +45,7 @@ func main(){
 
 	fmt.Printf("size is %d\n",len(dat))
 	//connect to socket
-	conn, err := net.Dial("tcp","10.0.1.5:8081")
+	conn, err := net.Dial("tcp","obelix102:9999")
 	check(err)
 	fmt.Println("Sending data now")
 	start := time.Now()
@@ -50,7 +53,7 @@ func main(){
 	for{
 		//send data
 
-		for i :=0; i < 59880; i++{
+		for i :=0; i < looper; i++{
 			fmt.Fprintf(conn,string(dat))
 		}
 		fmt.Fprintf(conn,string(dat)+"EOF")
@@ -63,5 +66,5 @@ func main(){
 		}
 	} 
 	fmt.Println("Operation Complete")
-	fmt.Printf("Total Time to Send %d Bytes Was %s\n",len(dat)*59880,elapsed)
+	fmt.Printf("Total Time to Send %d Bytes Was %s\n",len(dat)*looper,elapsed)
 }
