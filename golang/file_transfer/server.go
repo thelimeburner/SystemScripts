@@ -12,7 +12,7 @@ func main(){
 	fmt.Println("Launching server...")
 
 	//listen on all interfaces
-	ln,err := net.Listen("tcp", ":8081")
+	ln,err := net.Listen("tcp", ":9999")
 	if err != nil{
 	   fmt.Println("Error Listening:",err.Error())
 	   os.Exit(1)
@@ -34,6 +34,7 @@ func main(){
 func handleRequest(conn net.Conn){
      //buffer to hold data
      buf := make([]byte,1024)
+     fmt.Println("Received connection from client")
      var totaldata = 0
      var counter = 0
      for{
@@ -45,9 +46,9 @@ func handleRequest(conn net.Conn){
      		fmt.Println("Error reading:",err.Error())
      	}
         totaldata += reqLen
-	if counter % 100 ==0{
+	/*if counter % 100 ==0{
     		fmt.Println("Total Data is :",totaldata)
-	}
+	}*/
 	
      	//Send message back
    	  //conn.Write([]byte("Message received"))
@@ -56,6 +57,7 @@ func handleRequest(conn net.Conn){
 		os.Exit(1)
 	}
      }
+     fmt.Printf("Total Received: %d\n ",totaldata)
      //close connection
      conn.Close()
 }
