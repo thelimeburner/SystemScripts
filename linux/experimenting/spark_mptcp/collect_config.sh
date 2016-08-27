@@ -99,6 +99,10 @@ while read p; do
 		collect_info $p "Memory " "system" "cat /proc/meminfo"
 		collect_info $p "Memory Max" "system" "lshw -short -C memory"
 		collect_info $p "Networking" "networking" "lshw -class network"
+		collect_info $p "MPTCP Rules" "networking" "ip rule show"
+		collect_info $p "MPTCP Routes" "networking" "ip route"
+		collect_info $p "MPTCP Route 1" "networking" "ip route show table 1"
+		collect_info $p "MPTCP Route 2" "networking" "ip route show table 2"
 		collect_info $p "Hardware" "hardware" "lshw "
 	fi
 
