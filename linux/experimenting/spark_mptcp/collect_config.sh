@@ -104,6 +104,7 @@ while read p; do
 		collect_info $p "MPTCP Route 1" "networking" "ip route show table 1"
 		collect_info $p "MPTCP Route 2" "networking" "ip route show table 2"
 		collect_info $p "Hardware" "hardware" "lshw "
+		collect_info $p "NDiffPorts Subflows" "networking" "cat /sys/module/mptcp_ndiffports/parameters/num_subflows"
 	fi
 
 done < $SPARK_HOME/conf/slaves
