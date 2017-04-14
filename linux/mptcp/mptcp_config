@@ -1,5 +1,5 @@
 net.mptcp.mptcp_checksum=0
-net.mptcp.mptcp_debug=1
+net.mptcp.mptcp_debug=0
 net.mptcp.mptcp_enabled=1
 net.mptcp.mptcp_path_manager=fullmesh
 net.mptcp.mptcp_scheduler=default
@@ -12,3 +12,4 @@ net.ipv4.tcp_rmem=10240 87380 65000000
 net.ipv4.tcp_wmem=10240 87380 65000000
 net.core.rmem_max=65000000
 net.core.wmem_max=65000000
+net.core.netdev_max_backlog=16000
