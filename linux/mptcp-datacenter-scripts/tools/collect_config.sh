@@ -5,7 +5,6 @@
 # Make sure $SPARK_HOME is exported to allow for the discovery of the slaves file
 #
 #
-
 if [ $# -eq 0 ]; then
     echo "Usage: ./collect_config.sh PLACE_TO_PUT_CONFIGURATION"
     exit 1
@@ -97,15 +96,16 @@ while read p; do
 		collect_info $p "Block Devices" "system" "lsblk"
 		collect_info $p "CPUS " "system" " cat /proc/cpuinfo"
 		collect_info $p "Memory " "system" "cat /proc/meminfo"
-		collect_info $p "Memory Max" "system" "lshw -short -C memory"
-		collect_info $p "Networking" "networking" "lshw -class network"
+		collect_info $p "Memory Max" "system" "sudo lshw -short -C memory"
+		collect_info $p "Networking" "networking" "sudo lshw -class network"
 		collect_info $p "MPTCP Rules" "networking" "ip rule show"
 		collect_info $p "MPTCP Routes" "networking" "ip route"
 		collect_info $p "MPTCP Route 1" "networking" "ip route show table 1"
 		collect_info $p "MPTCP Route 2" "networking" "ip route show table 2"
-		collect_info $p "Hardware" "hardware" "lshw "
-		collect_info $p "NDiffPorts Subflows" "networking" "cat /sys/module/mptcp_ndiffports/parameters/num_subflows"
+		collect_info $p "Routing Table" "networking" "route -n"
+		collect_info $p "Hardware" "hardware" "sudo lshw "
+		collect_info $p "MPTCP Config" "networking" "/mptcp/./check_mptcp"
 	fi
 
-done < $SPARK_HOME/conf/slaves
+done < /scripts/tools/slaves
 
