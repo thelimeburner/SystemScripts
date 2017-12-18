@@ -19,5 +19,7 @@ sudo sysctl net.core.wmem_max
 sudo sysctl net.ipv4.tcp_moderate_rcvbuf
 
 echo "Num Subflows:"
+echo "Ndiffports"
 cat /sys/module/mptcp_ndiffports/parameters/num_subflows
-
+echo "Fullmesh"
+cat /sys/module/mptcp_fullmesh/parameters/num_subflows
